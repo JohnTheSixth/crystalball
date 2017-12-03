@@ -20,6 +20,8 @@ service: cb-backend
 provider:
   name: aws
   runtime: nodejs6.10
+  profile: serverless
+  region: us-east-2
 
 # you can overwrite defaults here
 #  stage: dev
@@ -55,21 +57,21 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  datadog:
+  crystalgaze:
     environment:
-      AUTHKEY: ${file(config.yml):dataworld.authkey}
+      AUTHKEY: ${file(./config/keys.yml):dataworld.readwrite}
     package:
       include:
-        - datadog/datadog.js
-    handler: datadog.handler
+        - index.js
+    handler: index.handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
+    events:
+      - http:
+          path: crystalgaze
+          method: get
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
@@ -107,3 +109,5 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+plugins:
+  - serverless-plugin-webpack

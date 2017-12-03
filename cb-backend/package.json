@@ -1,0 +1,16 @@
+{
+  "name": "crystalball-backend",
+  "version": "1.0.0",
+  "description": "A Backend for the Crystal Ball application that queries Data.world datasets.",
+  "main": "index.js",
+  "author": "John Burge <john@burge.io>",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "serverless-plugin-webpack": "^1.3.0",
+    "webpack": "^3.9.1"
+  }
+}
