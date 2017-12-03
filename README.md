@@ -1,8 +1,8 @@
-# College Bebop
+# Crystal Ball
 
-In a lot of ways, going to college is a lot like being on the crew of the 
+This app will help you figure out your future. That's right: it gives you the data _you_ need to figure out if you should go to college.
 
-This app will tell you your future. Or, what your future might look like. Or what someone else's future might look like.
+I guess if you've already _gone_ to college you probably won't need this app. But what if you're thinking about...GRAD SCHOOL??? Eh? Yep, Crystal Ball can help you with that too.
 
 ## Where to Find the Thing Online
 
