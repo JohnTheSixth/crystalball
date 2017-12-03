@@ -1,7 +1,8 @@
-// export const logical = (event) => {
-//   console.log('event');
-//   // const queryString = event.queryStringParameters;
-// }
+export const logical = (event) => {
+  const queryString = event.queryStringParameters;
+  // eslint-disable-next-line no-console
+  console.log('QUERY STRING: ', queryString);
+};
 
 export const handler = (event, context, callback) => {
   const response = {
@@ -13,4 +14,4 @@ export const handler = (event, context, callback) => {
   };
 
   callback(null, response);
-}
+};
