@@ -1,3 +1,0 @@
-dataworld:
-  readwrite: 'read-write api token from data.world account settings'
-  admin: 'admin api token from data.world account settings'
