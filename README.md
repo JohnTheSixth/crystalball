@@ -1,8 +1,27 @@
 # Crystal Ball
 
-This app will help you figure out your future. That's right: it gives you the data _you_ need to figure out if you should go to college.
+This helps people considering college to determine what colleges they can afford.
 
-I guess if you've already _gone_ to college you probably won't need this app. But what if you're thinking about...GRAD SCHOOL??? Eh? Yep, Crystal Ball can help you with that too.
+## How the Result is Determined
+
+The user is required to answer six short questions about their grad school goals. These questions are then used to determine what school a user can attend.
+
+### Affordability
+
+First, the app determines which schools the user is able to afford. It calculates this by the current amount a user has saved, the amount they're spending per month, and the amount they're willing to take on in debt.
+
+NOTE: The debt amount is fixed based on the User's savings and monthly payments for college.
+
+### Future Income
+
+Next, the app examines the median income of graduates in the User's field. This data is compared with the user's current income, and the difference is examined against the total cost of tuition and the amount the user is willing to take on in debt.
+
+All schools that will result in debt that cannot be paid off in 5 years or less are filtered out.
+
+### Schools to Shop
+
+What's left is all the schools that the user can afford and can 
+
 
 ## Where to Find the Thing Online
 
