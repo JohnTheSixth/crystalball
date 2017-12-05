@@ -14,14 +14,11 @@ import incomeCalc from './calculations/incomeCalc';
 import summary from './calculations/summary';
 
 export const logical = (event) => {
-  console.log('LOGICAL CALLED', event);
   const query = event.queryStringParameters;
-  console.log('QUERY', JSON.stringify(query));
   const results = {};
 
   return loanCalc(query.currentIncome)
     .then(({ loan }) => {
-      console.log('LOAN COMPLETED');
       results.loan = loan;
 
       return affordabilityCalc(
@@ -52,13 +49,11 @@ export const logical = (event) => {
 };
 
 export const handler = (event, context, callback) => {
-  console.log('EVENT: ', event);
   const response = fullSummary => ({
     statusCode: 200,
     body: JSON.stringify(fullSummary),
   });
 
-  console.log('CALLING LOGICAL');
   logical(event)
     .then(fullSummary => callback(null, response(fullSummary)))
     .catch((err) => {
