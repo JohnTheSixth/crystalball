@@ -14,6 +14,8 @@ const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, 
 
 const affordabilityCalc = (savings, spending, loanAmt, state) => {
   const totalYearlySpending = (savings / 4) + (spending * 12) + (loanAmt / 4);
+  const sQuery = sqlQuery(totalYearlySpending, state);
+  console.log('QUERY: ', sQuery);
 
   return axios({
     method: 'post',
@@ -22,15 +24,19 @@ const affordabilityCalc = (savings, spending, loanAmt, state) => {
       Authorization: process.env.AUTHKEY,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    data: { query: sqlQuery(totalYearlySpending, state) },
+    data: `query=${encodeURIComponent(sqlQuery(totalYearlySpending, state))}`,
   })
-    .then(affordableSchools => ({
+    .then(response => ({
       affordability: {
         totalYearlySpending,
-        schools: affordableSchools,
+        schools: response.data,
       },
     }))
-    .catch(err => new Error(err));
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
+      return new Error(err);
+    });
 };
 
 export default affordabilityCalc;

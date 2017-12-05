@@ -1,0 +1,3 @@
+dataworld:
+  readwrite: 'Bearer <<dw_read-write_token>>'
+  admin: 'Bearer <<dw_admin_token>>'

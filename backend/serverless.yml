@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: cb-backend
+service: pricemeow
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -57,21 +57,23 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  crystalgaze:
+  moneymeowser:
     environment:
       AUTHKEY: ${file(./config/keys.yml):dataworld.readwrite}
     package:
       include:
         - index.js
     handler: index.handler
+    timeout: 15
+    events:
+      - http:
+          path: meow
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
-    events:
-      - http:
-          path: crystalgaze
-          method: get
+
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
