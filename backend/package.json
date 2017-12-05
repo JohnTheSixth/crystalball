@@ -1,7 +1,7 @@
 {
-  "name": "crystalball-backend",
+  "name": "pricemeow-backend",
   "version": "1.0.0",
-  "description": "A Backend for the Crystal Ball application that queries Data.world datasets.",
+  "description": "A Backend for the PriceMeow application that queries Data.world datasets.",
   "main": "index.js",
   "author": "John Burge <john@burge.io>",
   "license": "MIT",
