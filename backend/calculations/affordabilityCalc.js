@@ -14,8 +14,6 @@ const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, 
 
 const affordabilityCalc = (savings, spending, loanAmt, state) => {
   const totalYearlySpending = (savings / 4) + (spending * 12) + (loanAmt / 4);
-  const sQuery = sqlQuery(totalYearlySpending, state);
-  console.log('QUERY: ', sQuery);
 
   return axios({
     method: 'post',

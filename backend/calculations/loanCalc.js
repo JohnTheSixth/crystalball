@@ -6,22 +6,15 @@
 */
 
 const loanCalc = (income) => {
-  console.log('LOANCALC CALLED');
   const fiveYearPayoff = Math.floor((income * 5) * 0.25);
-  console.log('FIVE YEAR PAYOFF:', fiveYearPayoff);
   const yearlyInterest = 1.0429; // Data drawn from US News & World Report
-  console.log('YEARLY INTEREST:', yearlyInterest);
 
   let initialLoanAmt = fiveYearPayoff;
-  console.log('INITIAL LOAN AMOUNT: ', initialLoanAmt);
 
   [1, 2, 3, 4, 5].forEach(() => {
     initialLoanAmt /= yearlyInterest;
   });
 
-  console.log('VALUE OF INITIAL LOAN AMT: ', initialLoanAmt);
-
-  console.log('LOAN LOOP COMPLETED');
   return Promise.resolve({
     loan: {
       fiveYearPayoff,
