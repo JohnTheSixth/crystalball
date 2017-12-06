@@ -1,10 +1,6 @@
-/*
-  Summary: The median income for graduates in your major is $${medianIncome} per year.
-  This is a ${percentChange}% ${percentChange < 0 ? 'decrease' : 'increase'} from
-  your current income.
-*/
-
 import axios from 'axios';
+
+import calculateLoan from './calculateLoanAmt';
 
 const sqlQuery = major => `SELECT median FROM all_ages WHERE major='${major.toUpperCase()}'`;
 
@@ -20,11 +16,15 @@ const incomeCalc = (major, currentIncome) => axios({
   .then((response) => {
     const medianIncome = response.data[0].median;
     const percentChange = Math.round(((medianIncome / currentIncome) - 1) * 10000) / 100;
+    const loanAmt = calculateLoan(medianIncome);
 
     return {
       income: {
         medianIncome,
         percentChange,
+        adjustedLoanAmt: loanAmt.max,
+        fiveYearPayoff: loanAmt.payoff,
+        interestRate: loanAmt.interest,
       },
     };
   })

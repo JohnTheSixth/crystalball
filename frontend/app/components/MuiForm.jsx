@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
-import { DropDownMenu, MenuItem, TextField, RaisedButton } from 'material-ui';
+import {
+  DropDownMenu,
+  MenuItem,
+  TextField,
+  RaisedButton,
+  Card,
+  CardHeader,
+  AppBar,
+} from 'material-ui';
 import { getMuiTheme, lightBaseTheme } from 'material-ui/styles';
 
 import muiThemeProps from './propTypes';
 import usStates from './data/states.json';
 import getAllMajors from './data/getMajorsRequest';
+import handleSubmit from './data/submitForm';
 
 class MuiForm extends React.Component {
   constructor(props) {
@@ -19,6 +28,9 @@ class MuiForm extends React.Component {
       collegeSavings: '',
       collegeSpending: '',
       userState: 'AL',
+      submitted: false,
+      submitting: false,
+      responseData: null,
     };
   }
 
@@ -30,13 +42,6 @@ class MuiForm extends React.Component {
     });
   // eslint-disable-next-line no-console
   }).catch(err => console.log(err));
-
-  handleStateChange = (event, index, value) => {
-    this.setState({
-      ...this.state,
-      userState: value,
-    });
-  }
 
   handleMajorChange = (event, index, value) => {
     this.setState({
@@ -63,82 +68,151 @@ class MuiForm extends React.Component {
     });
   }
 
-  formatValue = () => {}
+  handleStateChange = (event, index, value) => {
+    this.setState({
+      ...this.state,
+      userState: value,
+    });
+  }
+
+  handleClick = () => {
+    this.setState({
+      ...this.state,
+      submitting: true,
+      submitted: true,
+    });
+
+    console.log('STATE:', this.state);
+    handleSubmit(this.state)
+      .then((response) => {
+        console.log('RESPONSE:', response);
+        this.setState({
+          ...this.state,
+          submitting: false,
+          responseData: response,
+        });
+      })
+      // eslint-disable-next-line no-console
+      .catch(err => console.log(err));
+    console.log('STATE:', this.state);
+  }
 
   render() {
     return (
       <div>
         <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
-              Please select the State you live in:
-            </p>
-            <DropDownMenu
-              value={this.state.userState}
-              onChange={this.handleStateChange}
+          <Col xs={12}>
+            <AppBar
+              style={{ fontFamily: this.props.muiTheme.fontFamily }}
+              showMenuIconButton={false}
+              title="PriceMeow: Finding Colleges to Make Your Wallet Purr"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={10} xsOffset={1}>
+            <Card
+              expandable
+              initiallyExpanded
+              expanded={!this.state.submitted}
+              style={{ width: '100%', marginTop: '10px' }}
             >
-              { usStates.map(stateData => (<MenuItem
-                value={stateData.value}
-                primaryText={stateData.name}
-                key={stateData.value}
-              />)) }
-            </DropDownMenu>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
-              Please select your major:
-            </p>
-            <DropDownMenu
-              value={this.state.selectedMajor}
-              onChange={this.handleMajorChange}
+              <CardHeader
+                title="Tell us your secrets..."
+                showExpandableButton
+                style={{ backgroundColor: '#d3d3d3' }}
+              />
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
+                    Please select your major:
+                  </p>
+                  <DropDownMenu
+                    value={this.state.selectedMajor}
+                    onChange={this.handleMajorChange}
+                  >
+                    { this.state.majors.map(majorData => (<MenuItem
+                      value={majorData.major}
+                      primaryText={majorData.major}
+                      key={majorData.major_code}
+                    />)) }
+                  </DropDownMenu>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <TextField
+                    onChange={this.handleInput}
+                    name="currentIncome"
+                    floatingLabelText="What is your current annual salary?"
+                    value={this.state.currentIncome}
+                    fullWidth
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <TextField
+                    onChange={this.handleInput}
+                    name="collegeSavings"
+                    floatingLabelText="How much do you currently have saved?"
+                    value={this.state.collegeSavings}
+                    fullWidth
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <TextField
+                    onChange={this.handleInput}
+                    name="collegeSpending"
+                    floatingLabelText="How much do you expect to spend per month?"
+                    value={this.state.collegeSpending}
+                    fullWidth
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
+                    Please select the State you live in:
+                  </p>
+                  <DropDownMenu
+                    value={this.state.userState}
+                    onChange={this.handleStateChange}
+                  >
+                    { usStates.map(stateData => (<MenuItem
+                      value={stateData.value}
+                      primaryText={stateData.name}
+                      key={stateData.value}
+                    />)) }
+                  </DropDownMenu>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12} sm={12} md={10} mdOffset={1}>
+                  <RaisedButton
+                    primary
+                    label="Submit"
+                    onClick={this.handleClick}
+                    style={{ marginTop: '20px', marginBottom: '20px' }}
+                  />
+                </Col>
+              </Row>
+            </Card>
+            <Card
+              expandable
+              expanded={this.state.submitted}
+              style={{ width: '100%' }}
             >
-              { this.state.majors.map(majorData => (<MenuItem
-                value={majorData.major}
-                primaryText={majorData.major}
-                key={majorData.major_code}
-              />)) }
-            </DropDownMenu>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <TextField
-              onChange={this.handleInput}
-              name="currentIncome"
-              floatingLabelText="What is your current salary?"
-              value={this.state.currentIncome}
-              fullWidth
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <TextField
-              onChange={this.handleInput}
-              name="collegeSavings"
-              floatingLabelText="How much do you currently have saved?"
-              value={this.state.collegeSavings}
-              fullWidth
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <TextField
-              onChange={this.handleInput}
-              name="collegeSpending"
-              floatingLabelText="How much do you expect to spend per month?"
-              value={this.state.collegeSpending}
-              fullWidth
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
-            <br />
-            <RaisedButton primary label="Submit" />
+              <CardHeader
+                title="And we'll tell you no lies."
+                showExpandableButton
+                actAsExpander
+                style={{ backgroundColor: '#d3d3d3' }}
+              />
+              {this.state.responseData}
+            </Card>
           </Col>
         </Row>
       </div>

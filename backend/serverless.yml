@@ -59,7 +59,7 @@ provider:
 functions:
   moneymeowser:
     environment:
-      AUTHKEY: ${file(./config/keys.yml):dataworld.readwrite}
+      AUTHKEY: ${env:DW_AUTHKEY}
     package:
       include:
         - index.js
@@ -69,6 +69,18 @@ functions:
       - http:
           path: meow
           method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - snaphuntjwttoken
+              - Access-Control-Allow-Headers
+            allowCredentials: false
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
