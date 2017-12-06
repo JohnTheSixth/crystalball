@@ -39797,6 +39797,10 @@ var _materialUi = __webpack_require__(275);
 
 var _styles = __webpack_require__(110);
 
+var _ResultsForm = __webpack_require__(430);
+
+var _ResultsForm2 = _interopRequireDefault(_ResultsForm);
+
 var _propTypes3 = __webpack_require__(406);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
@@ -39869,24 +39873,22 @@ var MuiForm = function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      _this.setState(_extends({}, _this.state, {
-        submitting: true,
-        submitted: true
-      }));
-
-      console.log('STATE:', _this.state);
       (0, _submitForm2.default)(_this.state).then(function (response) {
-        console.log('RESPONSE:', response);
         _this.setState(_extends({}, _this.state, {
-          submitting: false,
-          responseData: response
+          submitted: true,
+          responseData: response.data
         }));
       })
       // eslint-disable-next-line no-console
       .catch(function (err) {
         return console.log(err);
       });
-      console.log('STATE:', _this.state);
+    };
+
+    _this.handleExpand = function () {
+      return _this.setState(_extends({}, _this.state, {
+        submitted: !_this.state.submitted
+      }));
     };
 
     _this.state = {
@@ -39897,7 +39899,6 @@ var MuiForm = function (_React$Component) {
       collegeSpending: '',
       userState: 'AL',
       submitted: false,
-      submitting: false,
       responseData: null
     };
     return _this;
@@ -39916,7 +39917,9 @@ var MuiForm = function (_React$Component) {
             _reactFlexboxGrid.Col,
             { xs: 12 },
             _react2.default.createElement(_materialUi.AppBar, {
-              style: { fontFamily: this.props.muiTheme.fontFamily },
+              style: {
+                fontFamily: this.props.muiTheme.fontFamily
+              },
               showMenuIconButton: false,
               title: 'PriceMeow: Finding Colleges to Make Your Wallet Purr'
             })
@@ -39927,26 +39930,23 @@ var MuiForm = function (_React$Component) {
           null,
           _react2.default.createElement(
             _reactFlexboxGrid.Col,
-            { xs: 10, xsOffset: 1 },
+            { xs: 12 },
             _react2.default.createElement(
               _materialUi.Card,
               {
-                expandable: true,
-                initiallyExpanded: true,
                 expanded: !this.state.submitted,
                 style: { width: '100%', marginTop: '10px' }
               },
               _react2.default.createElement(_materialUi.CardHeader, {
                 title: 'Tell us your secrets...',
-                showExpandableButton: true,
                 style: { backgroundColor: '#d3d3d3' }
               }),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(
                     'p',
                     { style: { fontFamily: this.props.muiTheme.fontFamily } },
@@ -39970,10 +39970,10 @@ var MuiForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(_materialUi.TextField, {
                     onChange: this.handleInput,
                     name: 'currentIncome',
@@ -39985,10 +39985,10 @@ var MuiForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(_materialUi.TextField, {
                     onChange: this.handleInput,
                     name: 'collegeSavings',
@@ -40000,10 +40000,10 @@ var MuiForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(_materialUi.TextField, {
                     onChange: this.handleInput,
                     name: 'collegeSpending',
@@ -40015,10 +40015,10 @@ var MuiForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(
                     'p',
                     { style: { fontFamily: this.props.muiTheme.fontFamily } },
@@ -40042,10 +40042,10 @@ var MuiForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactFlexboxGrid.Row,
-                null,
+                { expandable: true },
                 _react2.default.createElement(
                   _reactFlexboxGrid.Col,
-                  { xs: 12, sm: 12, md: 10, mdOffset: 1 },
+                  { xs: 10, xsOffset: 1 },
                   _react2.default.createElement(_materialUi.RaisedButton, {
                     primary: true,
                     label: 'Submit',
@@ -40058,17 +40058,14 @@ var MuiForm = function (_React$Component) {
             _react2.default.createElement(
               _materialUi.Card,
               {
-                expandable: true,
                 expanded: this.state.submitted,
-                style: { width: '100%' }
+                style: { width: '100%', marginTop: '10px' }
               },
               _react2.default.createElement(_materialUi.CardHeader, {
                 title: 'And we\'ll tell you no lies.',
-                showExpandableButton: true,
-                actAsExpander: true,
                 style: { backgroundColor: '#d3d3d3' }
               }),
-              this.state.responseData
+              _react2.default.createElement(_ResultsForm2.default, { expandable: true, results: this.state.responseData })
             )
           )
         )
@@ -62528,6 +62525,80 @@ var submitForm = function submitForm(_ref) {
 };
 
 exports.default = submitForm;
+
+/***/ }),
+/* 430 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _materialUi = __webpack_require__(275);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ResultsForm = function ResultsForm(props) {
+  return _react2.default.createElement(
+    _materialUi.Tabs,
+    null,
+    _react2.default.createElement(
+      _materialUi.Tab,
+      {
+        label: 'Loan Summary',
+        style: { padding: '5px' }
+      },
+      props.results.loanSummary
+    ),
+    _react2.default.createElement(
+      _materialUi.Tab,
+      {
+        label: 'Income Summary',
+        style: { padding: '5px' }
+      },
+      props.results.incomeSummary
+    ),
+    _react2.default.createElement(
+      _materialUi.Tab,
+      {
+        label: 'Affordability Summary',
+        style: { padding: '5px' }
+      },
+      props.results.affordabilitySummary
+    )
+  );
+};
+
+ResultsForm.propTypes = {
+  results: _propTypes2.default.shape({
+    loanSummary: _propTypes2.default.string,
+    incomeSummary: _propTypes2.default.string,
+    affordabilitySummary: _propTypes2.default.string,
+    schoolsSummary: _propTypes2.default.array
+  })
+};
+
+ResultsForm.defaultProps = {
+  results: {
+    loanSummary: '',
+    incomeSummary: '',
+    affordabilitySummary: '',
+    schoolsSummary: []
+  }
+};
+
+exports.default = ResultsForm;
 
 /***/ })
 /******/ ]);

@@ -12,6 +12,7 @@ import {
 } from 'material-ui';
 import { getMuiTheme, lightBaseTheme } from 'material-ui/styles';
 
+import Results from './ResultsForm';
 import muiThemeProps from './propTypes';
 import usStates from './data/states.json';
 import getAllMajors from './data/getMajorsRequest';
@@ -29,7 +30,6 @@ class MuiForm extends React.Component {
       collegeSpending: '',
       userState: 'AL',
       submitted: false,
-      submitting: false,
       responseData: null,
     };
   }
@@ -76,26 +76,22 @@ class MuiForm extends React.Component {
   }
 
   handleClick = () => {
-    this.setState({
-      ...this.state,
-      submitting: true,
-      submitted: true,
-    });
-
-    console.log('STATE:', this.state);
     handleSubmit(this.state)
       .then((response) => {
-        console.log('RESPONSE:', response);
         this.setState({
           ...this.state,
-          submitting: false,
-          responseData: response,
+          submitted: true,
+          responseData: response.data,
         });
       })
       // eslint-disable-next-line no-console
       .catch(err => console.log(err));
-    console.log('STATE:', this.state);
   }
+
+  handleExpand = () => this.setState({
+    ...this.state,
+    submitted: !this.state.submitted,
+  });
 
   render() {
     return (
@@ -103,27 +99,26 @@ class MuiForm extends React.Component {
         <Row>
           <Col xs={12}>
             <AppBar
-              style={{ fontFamily: this.props.muiTheme.fontFamily }}
+              style={{
+                fontFamily: this.props.muiTheme.fontFamily,
+              }}
               showMenuIconButton={false}
               title="PriceMeow: Finding Colleges to Make Your Wallet Purr"
             />
           </Col>
         </Row>
         <Row>
-          <Col xs={10} xsOffset={1}>
+          <Col xs={12}>
             <Card
-              expandable
-              initiallyExpanded
               expanded={!this.state.submitted}
               style={{ width: '100%', marginTop: '10px' }}
             >
               <CardHeader
                 title="Tell us your secrets..."
-                showExpandableButton
                 style={{ backgroundColor: '#d3d3d3' }}
               />
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
                     Please select your major:
                   </p>
@@ -139,8 +134,8 @@ class MuiForm extends React.Component {
                   </DropDownMenu>
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <TextField
                     onChange={this.handleInput}
                     name="currentIncome"
@@ -150,8 +145,8 @@ class MuiForm extends React.Component {
                   />
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <TextField
                     onChange={this.handleInput}
                     name="collegeSavings"
@@ -161,8 +156,8 @@ class MuiForm extends React.Component {
                   />
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <TextField
                     onChange={this.handleInput}
                     name="collegeSpending"
@@ -172,8 +167,8 @@ class MuiForm extends React.Component {
                   />
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
                     Please select the State you live in:
                   </p>
@@ -189,8 +184,8 @@ class MuiForm extends React.Component {
                   </DropDownMenu>
                 </Col>
               </Row>
-              <Row>
-                <Col xs={12} sm={12} md={10} mdOffset={1}>
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <RaisedButton
                     primary
                     label="Submit"
@@ -201,17 +196,14 @@ class MuiForm extends React.Component {
               </Row>
             </Card>
             <Card
-              expandable
               expanded={this.state.submitted}
-              style={{ width: '100%' }}
+              style={{ width: '100%', marginTop: '10px' }}
             >
               <CardHeader
                 title="And we'll tell you no lies."
-                showExpandableButton
-                actAsExpander
                 style={{ backgroundColor: '#d3d3d3' }}
               />
-              {this.state.responseData}
+              <Results expandable results={this.state.responseData} />
             </Card>
           </Col>
         </Row>
