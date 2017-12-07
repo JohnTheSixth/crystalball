@@ -1,9 +1,3 @@
-/*
-  Summary: Including your initial loan amount, you have a total of ${totalYearlySpending}
-  to spend per year on your education. Out of the top 230 schools in the United States,
-  you can afford to go to ${schoolCount} of those.
-*/
-
 import axios from 'axios';
 
 const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, name, location, description ' +
@@ -26,7 +20,7 @@ const affordabilityCalc = (savings, spending, loanAmt, state) => {
   })
     .then(response => ({
       affordability: {
-        totalYearlySpending,
+        totalYearlySpending: Math.round(totalYearlySpending),
         schools: response.data,
       },
     }))

@@ -1,6 +1,6 @@
-# Crystal Ball
+# PriceMeow
 
-This helps people considering college to determine what colleges they can afford.
+This helps people considering college determine what colleges will make their wallet purr...with not being empty.
 
 ## How the Result is Determined
 
@@ -20,8 +20,7 @@ All schools that will result in debt that cannot be paid off in 5 years or less 
 
 ### Schools to Shop
 
-What's left is all the schools that the user can afford and can 
-
+What's left is all the schools that the user can afford. This helps the user determine what schools they should focus their energy on.
 
 ## Where to Find the Thing Online
 
