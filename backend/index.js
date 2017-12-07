@@ -1,5 +1,5 @@
 /*
-Input from User:
+Shape of queryStringParameters from the event:
   queryStringParameters: {
     major: string,
     currentIncome: int,
@@ -8,7 +8,7 @@ Input from User:
     state: string
   }
 
-Results:
+Shape of `results` passed to the summary function:
   {
     loan: {
       fiveYearPayoff,
@@ -29,10 +29,10 @@ Results:
   }
 */
 
-import loanCalc from './calculations/loanCalc';
-import affordabilityCalc from './calculations/affordabilityCalc';
-import incomeCalc from './calculations/incomeCalc';
-import summary from './calculations/summary';
+import { loanCalc } from './calculations/loanCalc';
+import { affordabilityCalc } from './calculations/affordabilityCalc';
+import { incomeCalc } from './calculations/incomeCalc';
+import { summary } from './calculations/summary';
 
 export const logical = (event) => {
   const query = event.queryStringParameters;
@@ -65,13 +65,13 @@ export const logical = (event) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      return new Error(err);
+      throw new Error(err);
     });
 };
 
 export const handler = (event, context, callback) => {
-  const response = fullSummary => ({
-    statusCode: 200,
+  const response = (fullSummary, status) => ({
+    statusCode: status,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
@@ -82,11 +82,11 @@ export const handler = (event, context, callback) => {
     body: JSON.stringify(fullSummary),
   });
 
-  logical(event)
-    .then(fullSummary => callback(null, response(fullSummary)))
+  return logical(event)
+    .then(fullSummary => callback(null, response(fullSummary, 200)))
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      return new Error(err);
+      callback(response(err, 422), null);
     });
 };

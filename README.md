@@ -4,6 +4,14 @@ This helps people considering college determine what colleges will make their wa
 
 ## How the Result is Determined
 
+### Determining a Loan Amount from Current Income
+
+1. First, a user's current annual income is divided by 12. This is their monthly income. Next, this amount by 0.01, which is equivalent to 10% of the user's monthly income.
+
+2. This monthly income is multiplied
+    >**NOTE:** All loan calculations are 
+
+
 The user is required to answer six short questions about their grad school goals. These questions are then used to determine what school a user can attend.
 
 ### Affordability

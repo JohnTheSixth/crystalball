@@ -1,6 +1,6 @@
 import calculateLoan from './calculateLoanAmt';
 
-const loanCalc = (income) => {
+export const loanCalc = (income) => {
   const loanAmt = calculateLoan(income);
 
   return Promise.resolve({

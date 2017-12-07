@@ -1,4 +1,4 @@
-const summary = results => ({
+export const summary = results => ({
   loanSummary: `Based on your current annual income, you should not take out a loan that exceeds $${results.loan.annualLoanAmt}. ` +
     `Compounded annually at an interest rate of ${results.loan.interestRate}%, the final loan amount ` +
     `will total $${results.loan.fiveYearPayoff}. At your current income level, it will take you 5 years to pay off ` +

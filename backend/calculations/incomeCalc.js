@@ -4,7 +4,7 @@ import calculateLoan from './calculateLoanAmt';
 
 const sqlQuery = major => `SELECT median FROM all_ages WHERE major='${major.toUpperCase()}'`;
 
-const incomeCalc = (major, currentIncome) => axios({
+export const incomeCalc = (major, currentIncome) => axios({
   method: 'post',
   url: 'https://api.data.world/v0/sql/fivethirtyeight/college-majors',
   headers: {
