@@ -23,6 +23,7 @@ module.exports = {
               loose: true,
             },
           ],
+          'stage-2',
         ],
       },
     }],
