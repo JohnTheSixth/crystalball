@@ -6,6 +6,7 @@ import {
   AppBar,
   Card,
   CardHeader,
+  Divider,
   DropDownMenu,
   MenuItem,
   RaisedButton,
@@ -123,6 +124,19 @@ class MuiForm extends React.Component {
               />
               <Row expandable>
                 <Col xs={10} xsOffset={1}>
+                  <p>
+                    {
+                      'Here\'s how it works: enter your annual net income, the amount you\'ve saved ' +
+                      'for college, and how much you plan on spending per month on your education. ' +
+                      'Then select your major and your state. PriceMeow will tell you what you can afford ' +
+                      'And what schools you should focus your attention on.'
+                    }
+                  </p>
+                </Col>
+              </Row>
+              <Divider />
+              <Row expandable>
+                <Col xs={10} xsOffset={1}>
                   <p style={{ fontFamily: this.props.muiTheme.fontFamily }}>
                     Please select your major:
                   </p>
@@ -207,7 +221,11 @@ class MuiForm extends React.Component {
                 title="And we'll tell you no lies."
                 style={{ backgroundColor: '#d3d3d3' }}
               />
-              <Results expandable results={this.state.responseData} />
+              <Results
+                expandable
+                results={this.state.responseData}
+                userState={this.state.userState}
+              />
             </Card>
           </Col>
         </Row>

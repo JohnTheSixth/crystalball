@@ -23,6 +23,7 @@ Shape of `results` passed to the summary function:
       interestRate,
     },
     affordability: {
+      higherLoanAmt,
       totalYearlySpending,
       schools,
     }
@@ -48,24 +49,30 @@ export const logical = (event) => {
       );
     })
     .then(({ income }) => {
-      results.income = income;
       const higherLoanAmt = Math.max(income.adjustedLoanAmt, results.loan.annualLoanAmt);
+
+      results.income = income;
+      results.affordability = { higherLoanAmt };
 
       return affordabilityCalc(
         query.collegeSavings,
         query.collegeSpending,
-        higherLoanAmt,
+        results.affordability.higherLoanAmt,
         query.state,
       );
     })
-    .then(({ affordability }) => {
-      results.affordability = affordability;
+    .then(({ totalYearlySpending, schools }) => {
+      results.affordability = {
+        ...results.affordability,
+        totalYearlySpending,
+        schools,
+      };
 
       return summary(results);
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
-      console.log(err);
+      console.log(JSON.stringify(err));
       throw new Error(err);
     });
 };
@@ -87,7 +94,7 @@ export const handler = (event, context, callback) => {
     .then(fullSummary => callback(null, response(fullSummary, 200)))
     .catch((err) => {
       // eslint-disable-next-line no-console
-      console.log(err);
+      console.log(JSON.stringify(err));
       callback(response(err, 422), null);
     });
 };

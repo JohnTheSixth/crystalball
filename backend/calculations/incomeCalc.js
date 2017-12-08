@@ -30,7 +30,7 @@ export const incomeCalc = (major, currentIncome) => axios({
   })
   .catch((err) => {
     // eslint-disable-next-line no-console
-    console.log(err);
+    console.log(JSON.stringify(err));
     return new Error(err);
   });
 

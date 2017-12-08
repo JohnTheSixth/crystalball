@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, name, location, description ' +
+const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, name, location, description, rank ' +
   'FROM national_universities_rankings ' +
   `WHERE tuition_and_fees <= ${yearlySpending / 1000} ` +
   `OR (location LIKE '%, ${state}' AND in_state <= ${yearlySpending / 1000}) ` +
@@ -19,14 +19,12 @@ export const affordabilityCalc = (savings, spending, loanAmt, state) => {
     data: `query=${encodeURIComponent(sqlQuery(totalYearlySpending, state))}`,
   })
     .then(response => ({
-      affordability: {
-        totalYearlySpending: Math.round(totalYearlySpending),
-        schools: response.data,
-      },
+      totalYearlySpending: Math.round(totalYearlySpending),
+      schools: response.data,
     }))
     .catch((err) => {
       // eslint-disable-next-line no-console
-      console.log(err);
+      console.log(JSON.stringify(err));
       return new Error(err);
     });
 };
