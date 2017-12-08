@@ -39,7 +39,7 @@ PriceMeow is available [here](https://s3.us-east-2.amazonaws.com/pricemeow/index
 
 ## Roll Your Own: A Guide to Self-Deployment
 
-This is the slightly more complicated, but slightly more fun way of doing things. There are several steps, which are detailed below in the order you need to do them.
+This is the slightly more complicated, but more fun way of doing things. There are several steps, which are detailed below in the order you need to do them.
 
 All of the following instructions were designed for MacOS 10.13 (High Sierra).
 
@@ -73,9 +73,9 @@ Either way, remember the profile name you want to use. You will need it later.
 
 Node.js v6.10.3 is the latest version supported by AWS Lambda; hence that was the version used to develop PriceMeow.
 
-If you are running another version of Node, [NVM](https://github.com/creationix/nvm) is a good Node versions manager. The `frontend` and `backend` folders both include a `.nvmrc` file that you can use for NVM.
+If you are running another version of Node, [NVM](https://github.com/creationix/nvm) is a good Node version manager.
 
-If you have NVM installed, just run `nvm use` when you're in the `frontend` or `backend` folder, and it will use 6.10.3.
+If you have NVM installed, just run `nvm use` in the `frontend` or `backend` directories, or run `cd backend && nvm use` from the root. NVM will then use 6.10.3. If it's not installed, NVM will prompt you to do so.
 
 #### Install Yarn
 
@@ -112,10 +112,10 @@ From the root directory, run `cd backend` to change your working directory to `b
 
 #### Configure Your Environment Variables
 
-Remember how you signed up with Data.world? Well now, log into your account and go to Settings > Advanced. You'll see two API tokens: a Read/Write and an Admin. Copy the Read/Write token. You will then need to export it to your shell environment as `DW_AUTHKEY`, but you will need to add the text string `Bearer ` to the beginning of it (note the space after `Bearer`). Your command would look something like this:
+Remember how you signed up with Data.world? Well now, log into your account and go to Avatar (in the upper right) > Settings > Advanced. You'll see two API tokens: a Read/Write and an Admin. Copy the Read/Write token. You will then need to export it to your shell environment as `DW_AUTHKEY`, but you will need to add the text string `Bearer ` to the beginning of it (note the space after `Bearer`). Your command would look something like this:
 
 ```
-export DW_AUTHKEY='Bearer <<your-copied-dw-read-write-key>>
+export DW_AUTHKEY='Bearer <<your-copied-dw-read-write-key>>'
 ```
 
 Alternatively, you can copy the above command to your `.bashrc` or `.zshrc` file (or whatever flavor your shell source is) so that it loads into your environment every time.
@@ -129,7 +129,7 @@ Remember how you configured your [AWS Credentials](#aws-credentials)? Well now, 
 If you want to make sure everything is peachy keen with the code before you deploy it, run:
 
 ```
-yarn jest
+yarn test
 ```
 
 This will run the tests (which should pass, unless you messed them up somehow...c'mon).
@@ -142,14 +142,25 @@ Once the tests have passed, run the following:
 yarn sls deploy
 ```
 
-This executes the `serverless` binary in the `backend/node_modules/.bin` directory, and uses your AWS credentials to deploy, a CloudFormation template, the `moneymeowser` Lambda, an API Gateway, and a bunch of other neat stuff.
+This executes the `serverless` binary in the `backend/node_modules/.bin` directory, and uses your AWS credentials to deploy a bunch of neat AWS stuff like CloudFormation templates, the `moneymeowser` Lambda, an API Gateway, and other wizardry.
 
 #### Add the API URL to Your Environment
 
-Once the deploy is done, you should see printed to your terminal the URL of the GET endpoint of your API. Copy this value, then export it to an environment variable in your shell with the name `AWS_API_URL`:
+Once the deploy is done, you should see printed to your terminal the URL of the GET endpoint of your API. It will look something like this:
 
 ```
-export AWS_API_URL='your-get-endpoint'
+api keys:
+  None
+endpoints:
+  GET - https://somethingsomething.execute-api.us-east-2.amazonaws.com/dev/meow
+functions:
+  moneymeowser: pricemeow-dev-moneymeowser
+```
+
+Copy the url under `endpoints`, then export it to an environment variable in your shell with the name `AWS_API_URL`:
+
+```
+export AWS_API_URL='https://somethingsomething.execute-api.us-east-2.amazonaws.com/dev/meow'
 ```
 
 Again, it might be worthwhile adding this to your .bashrc/.zshrc file for future use.
@@ -173,3 +184,5 @@ This transpiles all of the the React components into the `public/bundle.js` file
 #### Run Locally or Deploy
 
 Since PriceMeow is just a single-page React app, you can load the `frontend/public/index.html` directly into your browser to run it. Otherwise, you can deploy it to any location that serves static html pages, like [GitHub Pages](https://pages.github.com/) or an S3 Bucket.
+
+Congratulations! You're done!
