@@ -9,5 +9,5 @@ jspm_packages
 # Serverless directories
 **/.serverless
 
-# Bundled Webpack Files
-frontend/public/*
+# Bundled JS file
+frontend/public/bundle.js

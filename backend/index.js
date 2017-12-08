@@ -30,8 +30,8 @@ Shape of `results` passed to the summary function:
 */
 
 import { loanCalc } from './calculations/loanCalc';
-import { affordabilityCalc } from './calculations/affordabilityCalc';
 import { incomeCalc } from './calculations/incomeCalc';
+import { affordabilityCalc } from './calculations/affordabilityCalc';
 import { summary } from './calculations/summary';
 
 export const logical = (event) => {
@@ -49,11 +49,12 @@ export const logical = (event) => {
     })
     .then(({ income }) => {
       results.income = income;
+      const higherLoanAmt = Math.max(income.adjustedLoanAmt, results.loan.annualLoanAmt);
 
       return affordabilityCalc(
         query.collegeSavings,
         query.collegeSpending,
-        income.adjustedLoanAmt,
+        higherLoanAmt,
         query.state,
       );
     })

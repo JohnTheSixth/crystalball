@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import calculateLoan from './calculateLoanAmt';
+import { calculateLoanAmt } from './calculateLoanAmt';
 
 const sqlQuery = major => `SELECT median FROM all_ages WHERE major='${major.toUpperCase()}'`;
 
@@ -16,7 +16,7 @@ export const incomeCalc = (major, currentIncome) => axios({
   .then((response) => {
     const medianIncome = response.data[0].median;
     const percentChange = Math.round(((medianIncome / currentIncome) - 1) * 10000) / 100;
-    const loanAmt = calculateLoan(medianIncome);
+    const loanAmt = calculateLoanAmt(medianIncome);
 
     return {
       income: {

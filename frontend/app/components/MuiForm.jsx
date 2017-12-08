@@ -1,19 +1,23 @@
+// absolute module imports
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 import {
-  DropDownMenu,
-  MenuItem,
-  TextField,
-  RaisedButton,
+  AppBar,
   Card,
   CardHeader,
-  AppBar,
+  DropDownMenu,
+  MenuItem,
+  RaisedButton,
+  TextField,
 } from 'material-ui';
 import { getMuiTheme, lightBaseTheme } from 'material-ui/styles';
 
+// relative module imports
 import Results from './ResultsForm';
 import muiThemeProps from './propTypes';
+
+// data module imports
 import usStates from './data/states.json';
 import getAllMajors from './data/getMajorsRequest';
 import handleSubmit from './data/submitForm';
@@ -23,14 +27,14 @@ class MuiForm extends React.Component {
     super(props);
 
     this.state = {
-      majors: [],
-      selectedMajor: '',
-      currentIncome: '',
       collegeSavings: '',
       collegeSpending: '',
-      userState: 'AL',
-      submitted: false,
+      currentIncome: '',
+      majors: [],
       responseData: null,
+      selectedMajor: '',
+      submitted: false,
+      userState: 'AL',
     };
   }
 
@@ -139,7 +143,7 @@ class MuiForm extends React.Component {
                   <TextField
                     onChange={this.handleInput}
                     name="currentIncome"
-                    floatingLabelText="What is your current annual salary?"
+                    floatingLabelText="What is your current annual NET salary?"
                     value={this.state.currentIncome}
                     fullWidth
                   />
@@ -150,7 +154,7 @@ class MuiForm extends React.Component {
                   <TextField
                     onChange={this.handleInput}
                     name="collegeSavings"
-                    floatingLabelText="How much do you currently have saved?"
+                    floatingLabelText="How much do you currently have saved for college?"
                     value={this.state.collegeSavings}
                     fullWidth
                   />
@@ -161,7 +165,7 @@ class MuiForm extends React.Component {
                   <TextField
                     onChange={this.handleInput}
                     name="collegeSpending"
-                    floatingLabelText="How much do you expect to spend per month?"
+                    floatingLabelText="How much do you expect to spend on college per month?"
                     value={this.state.collegeSpending}
                     fullWidth
                   />

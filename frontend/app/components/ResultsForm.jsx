@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui';
 
+import SchoolsForm from './SchoolsForm';
+
 const ResultsForm = props => (
   <Tabs>
-    <Tab
-      label="Loan Summary"
-      style={{ padding: '5px' }}
-    >
-      {props.results.loanSummary}
+    <Tab label="Loan Summary">
+      <div style={{ padding: '10px' }}>
+        {props.results.loanSummary}
+      </div>
     </Tab>
-    <Tab
-      label="Income Summary"
-      style={{ padding: '5px' }}
-    >
-      {props.results.incomeSummary}
+    <Tab label="Income Summary">
+      <div style={{ padding: '10px' }}>
+        {props.results.incomeSummary}
+      </div>
     </Tab>
-    <Tab
-      label="Affordability Summary"
-      style={{ padding: '5px' }}
-    >
-      {props.results.affordabilitySummary}
+    <Tab label="Affordability Summary">
+      <div style={{ padding: '10px' }}>
+        {props.results.affordabilitySummary}
+      </div>
+      <SchoolsForm schools={props.results.schoolsSummary} />
     </Tab>
   </Tabs>
 );

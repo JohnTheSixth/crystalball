@@ -8,7 +8,7 @@ const submitForm = ({
   userState: state,
 }) => axios({
   method: 'get',
-  url: 'https://yclpi68ta6.execute-api.us-east-2.amazonaws.com/dev/meow',
+  url: process.env.AWS_API_URL,
   params: {
     major,
     currentIncome,
