@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui';
 
-import SchoolsForm from './SchoolsForm';
+// import SchoolsForm from './SchoolsForm';
 
 const ResultsForm = props => (
   <Tabs>
@@ -20,7 +20,6 @@ const ResultsForm = props => (
       <div style={{ padding: '10px' }}>
         {props.results.affordabilitySummary}
       </div>
-      <SchoolsForm schools={props.results.schoolsSummary} />
     </Tab>
   </Tabs>
 );

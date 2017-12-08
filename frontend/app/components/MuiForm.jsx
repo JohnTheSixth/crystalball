@@ -107,7 +107,7 @@ class MuiForm extends React.Component {
                 fontFamily: this.props.muiTheme.fontFamily,
               }}
               showMenuIconButton={false}
-              title="PriceMeow: Finding Colleges to Make Your Wallet Purr"
+              title="PriceMeow: Finding Colleges that Make Your Wallet Purr"
             />
           </Col>
         </Row>
