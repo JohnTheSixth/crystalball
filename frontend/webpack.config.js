@@ -36,6 +36,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         AUTHKEY: JSON.stringify(process.env.DW_AUTHKEY),
+        AWS_API_URL: JSON.stringify(process.env.AWS_API_URL),
       },
     }),
   ],

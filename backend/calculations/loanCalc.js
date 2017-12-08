@@ -1,7 +1,7 @@
-import calculateLoan from './calculateLoanAmt';
+import { calculateLoanAmt } from './calculateLoanAmt';
 
-const loanCalc = (income) => {
-  const loanAmt = calculateLoan(income);
+export const loanCalc = (income) => {
+  const loanAmt = calculateLoanAmt(income);
 
   return Promise.resolve({
     loan: {

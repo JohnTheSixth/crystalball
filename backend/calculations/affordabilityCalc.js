@@ -4,9 +4,9 @@ const sqlQuery = (yearlySpending, state) => 'SELECT tuition_and_fees, in_state, 
   'FROM national_universities_rankings ' +
   `WHERE tuition_and_fees <= ${yearlySpending / 1000} ` +
   `OR (location LIKE '%, ${state}' AND in_state <= ${yearlySpending / 1000}) ` +
-  'ORDER BY rank ASC LIMIT 231';
+  'ORDER BY rank ASC';
 
-const affordabilityCalc = (savings, spending, loanAmt, state) => {
+export const affordabilityCalc = (savings, spending, loanAmt, state) => {
   const totalYearlySpending = (savings / 4) + (spending * 12) + (loanAmt / 4);
 
   return axios({

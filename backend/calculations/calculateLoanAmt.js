@@ -1,4 +1,4 @@
-const calculateLoanAmt = (income) => {
+export const calculateLoanAmt = (income) => {
   const monthlyPayment = Math.floor((income / 12) * 0.1);
   const fiveYearPayoff = monthlyPayment * 60;
   const yearlyInterest = 1.0429; // Data drawn from US News & World Report
